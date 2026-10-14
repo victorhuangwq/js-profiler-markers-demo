@@ -1,8 +1,17 @@
 # JS Self-Profiling: markers without cross-origin isolation
 
-Demo for the Chromium CL [[JS Self-Profiling] Allow safe markers in non-isolated contexts](https://chromium-review.googlesource.com/c/chromium/src/+/6012522).
+- [Chrome Status](https://chromestatus.com/feature/5201297767792640)
+- Origin trial: [Chrome](https://developer.chrome.com/origintrials/#/register_trial/2442639847895072769) (M153 to M161), [Edge](https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/trials/ad17726e-aab6-42a0-8d63-0888419e5ad3)
+- Explainers: [Markers](https://github.com/WICG/js-self-profiling/blob/main/markers.md), [Conditional markers exposure](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ConditionalMarkersExposure/explainer.md)
+- [Spec PR: WICG/js-self-profiling#85](https://github.com/WICG/js-self-profiling/pull/85)
+- [Chromium CL 6012522](https://chromium-review.googlesource.com/c/chromium/src/+/6012522)
+- [Security discussion: WICG/js-self-profiling#61](https://github.com/WICG/js-self-profiling/issues/61)
 
-`ProfilerSample.marker` used to require cross-origin isolation (COI), which few production sites can deploy. This change exposes `layout` and `style` markers in every context, since their timing is already observable through DOM and CSSOM APIs. `gc`, `paint`, and `script` still require COI.
+`ProfilerSample.marker` tells you what the browser was doing when a sample was taken, such as running layout or style. It used to require cross-origin isolation (COI), which few production sites can deploy. This change exposes `layout` and `style` markers in every context, since their timing is already observable through DOM and CSSOM APIs. `gc`, `paint`, and `script` still require COI.
+
+## What this demo shows
+
+The same profiling test runs on two pages, one with COI and one without. You should see `layout` and `style` markers on both, and `gc`, `paint`, and `script` only on the COI page.
 
 ## Run
 
@@ -28,10 +37,3 @@ Demo for the Chromium CL [[JS Self-Profiling] Allow safe markers in non-isolated
 ## Reading results
 
 Markers come from sampling, so an expected marker can occasionally be missing. Rerun before treating that as a failure. A `gc`, `paint`, or `script` marker on `/no-coi` is always a real failure.
-
-## Links
-
-- [Chromium CL 6012522](https://chromium-review.googlesource.com/c/chromium/src/+/6012522)
-- [Spec PR: WICG/js-self-profiling#85](https://github.com/WICG/js-self-profiling/pull/85)
-- [Explainer: Conditional Markers Exposure](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ConditionalMarkersExposure/explainer.md)
-- [Security discussion: WICG/js-self-profiling#61](https://github.com/WICG/js-self-profiling/issues/61)
