@@ -1,4 +1,4 @@
-# JS Self-Profiling: Markers Without Cross-Origin Isolation
+# JS Self-Profiling: markers without cross-origin isolation
 
 Demo for the Chromium CL [[JS Self-Profiling] Allow safe markers in non-isolated contexts](https://chromium-review.googlesource.com/c/chromium/src/+/6012522).
 
