@@ -4,11 +4,11 @@
 - Origin trial: [Chrome](https://developer.chrome.com/origintrials/#/register_trial/2442639847895072769) (M153 to M161), [Edge](https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/trials/ad17726e-aab6-42a0-8d63-0888419e5ad3)
 - Explainers: [Markers](https://github.com/WICG/js-self-profiling/blob/main/markers.md), [Conditional markers exposure](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ConditionalMarkersExposure/explainer.md)
 
-`ProfilerSample.marker` tells you what the browser was doing when a sample was taken, such as running layout or style. It used to require cross-origin isolation (COI), which few production sites can deploy. This change exposes `layout` and `style` markers in every context, since their timing is already observable through DOM and CSSOM APIs. `gc`, `paint`, and `script` still require COI.
+Profiler markers record what the browser was doing when each sample was taken, such as running layout or style. They used to require cross-origin isolation (COI), which few production sites can deploy. This change exposes layout and style markers without COI, since that timing is already observable through DOM and CSSOM APIs. Garbage collection, paint, and script markers still require COI.
 
 ## What this demo shows
 
-The same profiling test runs on two pages, one with COI and one without. You should see `layout` and `style` markers on both, and `gc`, `paint`, and `script` only on the COI page.
+The same profiling test runs on two pages, one with COI and one without. Layout and style markers should appear on both. Garbage collection, paint, and script markers should appear only on the COI page.
 
 ## Run
 
